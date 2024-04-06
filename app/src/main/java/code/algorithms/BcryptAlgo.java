@@ -2,10 +2,10 @@ package code.algorithms;
 
 import org.bouncycastle.crypto.generators.BCrypt;
 
-import java.security.SecureRandom;
 import java.util.Scanner;
 
 import static code.Utils.convertBytesToHex;
+import static code.Utils.generateSalt16Bytes;
 
 public class BcryptAlgo implements Algorithm {
 
@@ -29,15 +29,7 @@ public class BcryptAlgo implements Algorithm {
         return BCrypt.generate(byteInputPassword, salt, workFunction);
     }
 
-    public String getSaltHex() {
+    public String getSaltAsHex() {
         return convertBytesToHex(salt);
-    }
-
-    private byte[] generateSalt16Bytes() {
-        SecureRandom secureRandom = new SecureRandom();
-        byte[] salt = new byte[16];
-        secureRandom.nextBytes(salt);
-
-        return salt;
     }
 }

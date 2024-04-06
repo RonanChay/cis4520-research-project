@@ -2,6 +2,12 @@ plugins {
     id 'application'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(18))
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -9,13 +15,22 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
 
-    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
-    implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.70'
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on
+    implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.77'
 }
 
 application {
     mainClass = 'code.ResearchProject'
 }
+
+run {
+    standardInput = System.in
+}
+
+/**
+ * gradle clean build
+ * gradle --console plain run
+ */
 
 //tasks.named('test') {
 //    useJUnitPlatform()
