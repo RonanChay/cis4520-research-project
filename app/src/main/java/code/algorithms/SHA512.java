@@ -5,6 +5,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
+import static code.Utils.convertBytesToHex;
+
 /**
  * SHA512 Class
  * Provides the necessary methods to input password and parameter
@@ -50,12 +52,7 @@ public class SHA512 implements Algorithm {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             byte[] bytesHash = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
-            // Convert to hex
-            StringBuilder hexString = new StringBuilder();
-            for (byte aByte : bytesHash) {
-                hexString.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPasswordHash = hexString.toString();
+            generatedPasswordHash = convertBytesToHex(bytesHash);
         } catch (NoSuchAlgorithmException e) {
             // TODO: Better error handling
             e.printStackTrace();
