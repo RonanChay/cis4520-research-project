@@ -1,9 +1,9 @@
 package code.algorithms;
 
 /**
- * Interface to be implemented by password hashing algorithms if needed
+ * Interface to be implemented by password hashing algorithms
  */
 public interface Algorithm {
     void getInputParams();
-    String hashPassword();
+    byte[] hashPassword();
 }

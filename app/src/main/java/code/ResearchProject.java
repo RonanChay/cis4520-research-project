@@ -1,18 +1,20 @@
 package code;
 
 import code.algorithms.BcryptAlgo;
-import code.algorithms.SHA512;
+import code.algorithms.SHA512Algo;
+
+import static code.Utils.convertBytesToHex;
 
 /**
- * Main class - Calls each algorithm and records+outputs metrics
+ * Main class - Calls each algorithm and records + outputs metrics
  */
 public class ResearchProject {
     public static void main(String[] args) {
         long startTime, endTime, duration;
-        String hashedPassword;
+        byte[] hashedPassword;
 
         // SHA-512 Analysis
-        SHA512 sha512 = new SHA512();
+        SHA512Algo sha512 = new SHA512Algo();
 
         System.out.println("\n======== Analyzing SHA-512 Algorithm ========");
         sha512.getInputParams();
@@ -24,7 +26,7 @@ public class ResearchProject {
         duration = endTime - startTime;
 
         System.out.println("\nResult:");
-        System.out.println("Hashed Password: " + hashedPassword);
+        System.out.println("Hashed Password: " + convertBytesToHex(hashedPassword));
         System.out.println("Time Taken: " + duration + "ms");
 
         // BCrypt Analysis
@@ -40,7 +42,7 @@ public class ResearchProject {
 
         System.out.println("\nResult:");
         System.out.println("Salt: " + bcrypt.getSaltHex());
-        System.out.println("Hashed Password: " + hashedPassword);
+        System.out.println("Hashed Password: " + convertBytesToHex(hashedPassword));
         System.out.println("Time Taken: " + duration + "ms");
     }
 }

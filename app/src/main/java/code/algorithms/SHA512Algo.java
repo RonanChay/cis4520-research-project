@@ -5,14 +5,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
-import static code.Utils.convertBytesToHex;
-
 /**
  * SHA512 Class
  * Provides the necessary methods to input password and parameter
  * and perform SHA-512 hash
  */
-public class SHA512 implements Algorithm {
+public class SHA512Algo implements Algorithm {
     // Plain text password input
     private String plaintextPassword = "";
     // Work function parameter input
@@ -34,9 +32,9 @@ public class SHA512 implements Algorithm {
      * @return String final output password hash
      */
     @Override
-    public String hashPassword() {
-        String finalHash = plaintextPassword;
-        for (int i = 0; i < 1L << workFunction; i++) {
+    public byte[] hashPassword() {
+        byte[] finalHash = generateHash(plaintextPassword.getBytes(StandardCharsets.UTF_8));
+        for (int i = 0; i < 1L << workFunction - 1; i++) {
             finalHash = generateHash(finalHash);
         }
         return finalHash;
@@ -47,12 +45,11 @@ public class SHA512 implements Algorithm {
      * @param passwordToHash Password to be hashed
      * @return String hash of password
      */
-    private String generateHash(String passwordToHash) {
-        String generatedPasswordHash = "-";
+    private byte[] generateHash(byte[] passwordToHash) {
+        byte[] generatedPasswordHash = new byte[0];
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
-            byte[] bytesHash = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
-            generatedPasswordHash = convertBytesToHex(bytesHash);
+            generatedPasswordHash = md.digest(passwordToHash);
         } catch (NoSuchAlgorithmException e) {
             // TODO: Better error handling
             e.printStackTrace();
