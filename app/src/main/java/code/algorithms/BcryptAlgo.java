@@ -22,6 +22,22 @@ public class BcryptAlgo implements Algorithm {
         workFunction = scanner.nextInt();
     }
 
+    public String getPlaintextPassword() {
+        return plaintextPassword;
+    }
+
+    public void setPlaintextPassword(String plaintextPassword) {
+        this.plaintextPassword = plaintextPassword;
+    }
+
+    public int getWorkFunction() {
+        return workFunction;
+    }
+
+    public void setWorkFunction(int workFunction) {
+        this.workFunction = workFunction;
+    }
+
     @Override
     public byte[] hashPassword() {
         byte[] byteInputPassword = BCrypt.passwordToByteArray(plaintextPassword.toCharArray());

@@ -9,10 +9,10 @@ import java.util.Scanner;
 import static code.Utils.convertBytesToHex;
 import static code.Utils.generateSalt16Bytes;
 
-public class Argon2Algo implements Algorithm {
+public class Argon2idAlgo implements Algorithm {
     private String plaintextPassword = "";
-    int numCycles = 2;
-    int memLimit = 66536;
+    int numIterations = 1;
+    int memLimit = 1024;
     int hashLength = 32;
     int numThreads = 1;
     byte[] salt;
@@ -22,9 +22,38 @@ public class Argon2Algo implements Algorithm {
         System.out.println("Enter password to hash: ");
         plaintextPassword = scanner.nextLine().strip();
         System.out.println("Enter number of iterations: ");
-        numCycles = scanner.nextInt();
-        System.out.println("Enter number of threads to use: ");
-        numThreads = scanner.nextInt();
+        numIterations = scanner.nextInt();
+    }
+
+    public String getPlaintextPassword() {
+        return plaintextPassword;
+    }
+    public void setPlaintextPassword(String plaintextPassword) {
+        this.plaintextPassword = plaintextPassword;
+    }
+    public int getNumIterations() {
+        return numIterations;
+    }
+    public void setNumIterations(int numIterations) {
+        this.numIterations = numIterations;
+    }
+    public int getMemLimit() {
+        return memLimit;
+    }
+    public void setMemLimit(int memLimit) {
+        this.memLimit = memLimit;
+    }
+    public int getHashLength() {
+        return hashLength;
+    }
+    public void setHashLength(int hashLength) {
+        this.hashLength = hashLength;
+    }
+    public int getNumThreads() {
+        return numThreads;
+    }
+    public void setNumThreads(int numThreads) {
+        this.numThreads = numThreads;
     }
 
     @Override
@@ -32,8 +61,8 @@ public class Argon2Algo implements Algorithm {
         salt = generateSalt16Bytes();
 
         Argon2Parameters.Builder argon2Builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id)
-                .withVersion(Argon2Parameters.ARGON2_VERSION_13)
-                .withIterations(numCycles)
+                .withVersion(Argon2Parameters.ARGON2_VERSION_10)
+                .withIterations(numIterations)
                 .withMemoryAsKB(memLimit)
                 .withParallelism(numThreads)
                 .withSalt(salt);

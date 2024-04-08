@@ -11,10 +11,8 @@ import java.util.Scanner;
  * and perform SHA-512 hash
  */
 public class SHA512Algo implements Algorithm {
-    // Plain text password input
-    private String plaintextPassword = "";
-    // Work function parameter input
-    private int workFunction = 0;
+    private String plaintextPassword = "";  // Plain text password input
+    private int workFunction = 0;   // Work function parameter input
 
     // Prompts user for plain text password and work function parameter
     @Override
@@ -26,6 +24,19 @@ public class SHA512Algo implements Algorithm {
         workFunction = scanner.nextInt();
     }
 
+    public String getPlaintextPassword() {
+        return plaintextPassword;
+    }
+    public void setPlaintextPassword(String plaintextPassword) {
+        this.plaintextPassword = plaintextPassword;
+    }
+    public int getWorkFunction() {
+        return workFunction;
+    }
+    public void setWorkFunction(int workFunction) {
+        this.workFunction = workFunction;
+    }
+
     /**
      * Hashes the password based on the work function parameter
      * Number of iterations = 2^(work function)
@@ -34,6 +45,7 @@ public class SHA512Algo implements Algorithm {
     @Override
     public byte[] hashPassword() {
         byte[] finalHash = generateHash(plaintextPassword.getBytes(StandardCharsets.UTF_8));
+        // total num iterations = 2^(workFunction)
         for (int i = 0; i < 1L << workFunction - 1; i++) {
             finalHash = generateHash(finalHash);
         }

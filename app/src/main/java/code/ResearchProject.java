@@ -1,9 +1,10 @@
 package code;
 
-import code.algorithms.Argon2Algo;
+import code.algorithms.Argon2idAlgo;
 import code.algorithms.BcryptAlgo;
 import code.algorithms.SHA512Algo;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import static code.Utils.convertBytesToHex;
@@ -14,17 +15,44 @@ import static code.Utils.convertBytesToHex;
 public class ResearchProject {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        int choice; // User input for chosen menu option
 
+        // Menu options
         System.out.println("\n============ CIS 4520 Research Project - Password Hashing Algorithms ============");
-        System.out.println("1. Automatic input for parameter comparison");
-        System.out.println("2. Manual input for one-time test");
-        System.out.println("Select an option (enter the number): ");
-        int choice = Integer.parseInt(scanner.nextLine().strip());
+        System.out.println("1. Generate parameter-cost comparison data for SHA-512");
+        System.out.println("2. Generate parameter-cost comparison data for BCrypt");
+        System.out.println("3. Generate parameter-cost comparison data for Argon2id");
+        System.out.println("4. Manual input for one-time test of each algorithm");
+        System.out.println("Select an option (1-4): ");
+        try {
+            choice = scanner.nextInt();
+        } catch (Exception ex) {
+            System.out.println("Error occurred when entering choice. Ensure that a valid number was input");
+            System.out.println(ex);
+            return;
+        }
 
-        if (choice == 1) {
-            // auto loop though all possible parameter combinations
-
-        } else if (choice == 2) {
+        if (choice >= 1 && choice <= 3) {
+            // Generate cost data for specified algorithm
+            ResultGenerator resultGenerator = new ResultGenerator();
+            try {
+                switch (choice) {
+                    case 1:
+                        resultGenerator.generateSHA512Results();
+                        break;
+                    case 2:
+                        resultGenerator.generateBCryptResults();
+                        break;
+                    case 3:
+                        resultGenerator.generateArgon2idResults();
+                        break;
+                }
+            } catch (IOException ex) {
+                System.out.println("Error occurred when writing to csv file");
+                ex.printStackTrace();
+            }
+        } else if (choice == 4) {
+            // Manual one-time algorithm tests
             long startTime, endTime, duration;
             byte[] hashedPassword;
 
@@ -60,8 +88,8 @@ public class ResearchProject {
             System.out.println("Hashed Password: " + convertBytesToHex(hashedPassword));
             System.out.println("Time Taken: " + duration + "ms");
 
-            // BCrypt Analysis
-            Argon2Algo argon2 = new Argon2Algo();
+            // Argon2id Analysis
+            Argon2idAlgo argon2 = new Argon2idAlgo();
             System.out.println("\n======== Analyzing Argon2 Algorithm ========");
             argon2.getInputParams();
             System.out.println("\nHashing now...");
@@ -76,7 +104,8 @@ public class ResearchProject {
             System.out.println("Hashed Password: " + convertBytesToHex(hashedPassword));
             System.out.println("Time Taken: " + duration + "ms");
         } else {
-            System.out.println("Invalid option");
+            // Invalid option number input
+            System.out.println("Invalid option.");
         }
 
         System.out.println("\n\nExiting program...\n");
