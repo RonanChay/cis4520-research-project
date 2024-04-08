@@ -96,8 +96,8 @@ public class ResultGenerator {
         System.out.println("Plaintext: " + bcrypt.getPlaintextPassword());
         // Try work factor parameter for values 4 to 31 - BouncyCastle specification limits for BCrypt algorithm
         for (int workfactor = 4; workfactor < 32; workfactor++) {
-            bcrypt.setWorkfactor(workfactor);
-            System.out.println("Work factor: " + bcrypt.getWorkfactor());
+            bcrypt.setWorkFactor(workfactor);
+            System.out.println("Work factor: " + bcrypt.getWorkFactor());
 
             startTime = System.currentTimeMillis();
             hashedPassword = bcrypt.hashPassword();

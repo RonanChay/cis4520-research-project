@@ -11,7 +11,7 @@ public class BcryptAlgo implements Algorithm {
 
     private String plaintextPassword = ""; // Plain text password input (up to 72 bytes)
 
-    private int workfactor = 0; // Work factor parameter input (4..31 inclusive)
+    private int workFactor = 0; // Work factor parameter input (4..31 inclusive)
     private byte[] salt; // Random 16-byte salt used for password
     @Override
     public void getInputParams() {
@@ -19,7 +19,7 @@ public class BcryptAlgo implements Algorithm {
         System.out.println("Enter password to hash: ");
         plaintextPassword = scanner.nextLine().strip();
         System.out.println("Enter work factor (4 to 31 inclusive): ");
-        workfactor = scanner.nextInt();
+        workFactor = scanner.nextInt();
     }
 
     public String getPlaintextPassword() {
@@ -28,18 +28,18 @@ public class BcryptAlgo implements Algorithm {
     public void setPlaintextPassword(String plaintextPassword) {
         this.plaintextPassword = plaintextPassword;
     }
-    public int getWorkfactor() {
-        return workfactor;
+    public int getWorkFactor() {
+        return workFactor;
     }
-    public void setWorkfactor(int workfactor) {
-        this.workfactor = workfactor;
+    public void setWorkFactor(int workFactor) {
+        this.workFactor = workFactor;
     }
 
     @Override
     public byte[] hashPassword() {
         byte[] byteInputPassword = BCrypt.passwordToByteArray(plaintextPassword.toCharArray());
         salt = generateSalt16Bytes();
-        return BCrypt.generate(byteInputPassword, salt, workfactor);
+        return BCrypt.generate(byteInputPassword, salt, workFactor);
     }
 
     public String getSaltAsHex() {
