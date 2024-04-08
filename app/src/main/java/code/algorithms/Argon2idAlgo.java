@@ -67,10 +67,10 @@ public class Argon2idAlgo implements Algorithm {
                 .withParallelism(numThreads)
                 .withSalt(salt);
 
-        Argon2BytesGenerator argon2 = new Argon2BytesGenerator();
-        argon2.init(argon2Builder.build());
+        Argon2BytesGenerator argon2id = new Argon2BytesGenerator();
+        argon2id.init(argon2Builder.build());
         byte[] hashedPassword = new byte[hashLength];
-        argon2.generateBytes(plaintextPassword.getBytes(StandardCharsets.UTF_8), hashedPassword, 0, hashedPassword.length);
+        argon2id.generateBytes(plaintextPassword.getBytes(StandardCharsets.UTF_8), hashedPassword, 0, hashedPassword.length);
 
         return hashedPassword;
     }

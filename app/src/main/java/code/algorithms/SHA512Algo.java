@@ -12,16 +12,16 @@ import java.util.Scanner;
  */
 public class SHA512Algo implements Algorithm {
     private String plaintextPassword = "";  // Plain text password input
-    private int workFunction = 0;   // Work function parameter input
+    private int workFactor = 0;   // Work factor parameter input
 
-    // Prompts user for plain text password and work function parameter
+    // Prompts user for plain text password and work factor parameter
     @Override
     public void getInputParams() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter password to hash: ");
         plaintextPassword = scanner.nextLine().strip();
-        System.out.println("Enter work function: ");
-        workFunction = scanner.nextInt();
+        System.out.println("Enter work factor: ");
+        workFactor = scanner.nextInt();
     }
 
     public String getPlaintextPassword() {
@@ -30,23 +30,23 @@ public class SHA512Algo implements Algorithm {
     public void setPlaintextPassword(String plaintextPassword) {
         this.plaintextPassword = plaintextPassword;
     }
-    public int getWorkFunction() {
-        return workFunction;
+    public int getWorkFactor() {
+        return workFactor;
     }
-    public void setWorkFunction(int workFunction) {
-        this.workFunction = workFunction;
+    public void setWorkFactor(int workFactor) {
+        this.workFactor = workFactor;
     }
 
     /**
-     * Hashes the password based on the work function parameter
-     * Number of iterations = 2^(work function)
+     * Hashes the password based on the work factor parameter
+     * Number of iterations = 2^(work factor)
      * @return String final output password hash
      */
     @Override
     public byte[] hashPassword() {
         byte[] finalHash = generateHash(plaintextPassword.getBytes(StandardCharsets.UTF_8));
-        // total num iterations = 2^(workFunction)
-        for (int i = 0; i < 1L << workFunction - 1; i++) {
+        // total num iterations = 2^(workFactor)
+        for (int i = 0; i < 1L << workFactor - 1; i++) {
             finalHash = generateHash(finalHash);
         }
         return finalHash;

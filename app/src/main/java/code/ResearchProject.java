@@ -89,18 +89,18 @@ public class ResearchProject {
             System.out.println("Time Taken: " + duration + "ms");
 
             // Argon2id Analysis
-            Argon2idAlgo argon2 = new Argon2idAlgo();
-            System.out.println("\n======== Analyzing Argon2 Algorithm ========");
-            argon2.getInputParams();
+            Argon2idAlgo argon2id = new Argon2idAlgo();
+            System.out.println("\n======== Analyzing Argon2id Algorithm ========");
+            argon2id.getInputParams();
             System.out.println("\nHashing now...");
 
             startTime = System.currentTimeMillis();
-            hashedPassword = argon2.hashPassword();
+            hashedPassword = argon2id.hashPassword();
             endTime = System.currentTimeMillis();
             duration = endTime - startTime;
 
             System.out.println("\nResult:");
-            System.out.println("Salt: " + argon2.getSaltAsHex());
+            System.out.println("Salt: " + argon2id.getSaltAsHex());
             System.out.println("Hashed Password: " + convertBytesToHex(hashedPassword));
             System.out.println("Time Taken: " + duration + "ms");
         } else {

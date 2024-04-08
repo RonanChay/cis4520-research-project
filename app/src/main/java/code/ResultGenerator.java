@@ -21,7 +21,7 @@ public class ResultGenerator {
     List<String[]> dataLines = new ArrayList<>();
     final String SHA512_CSV_FILE_NAME = "sha512-results.csv";
     final String BCRYPT_CSV_FILE_NAME = "bcrypt-results.csv";
-    final String ARGON2_CSV_FILE_NAME = "argon2-results.csv";
+    final String ARGON2_CSV_FILE_NAME = "argon2id-results.csv";
 
     /**
      * Converts String array to csv String
@@ -38,8 +38,8 @@ public class ResultGenerator {
      * @throws IOException
      */
     private void convertDataLinesToCSVFile(String filename) throws IOException {
-        File csvOutputFile = new File(filename);
-        try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+        File csvResultsFile = new File(filename);
+        try (PrintWriter pw = new PrintWriter(csvResultsFile)) {
             dataLines.stream()
                     .map(this::convertToCSV)
                     .forEach(pw::println);
@@ -51,16 +51,16 @@ public class ResultGenerator {
      * @throws IOException
      */
     public void generateSHA512Results() throws IOException {
-        String[] headers = {"WORK_FUNCTION", "HASH", "TIME"};   // Csv file headers
+        String[] headers = {"WORK_FACTOR", "HASH", "TIME"};   // Csv file headers
         dataLines.add(headers);
 
         SHA512Algo sha512 = new SHA512Algo();
         sha512.setPlaintextPassword(plaintext);
         System.out.println("Plaintext: " + sha512.getPlaintextPassword());
-        // Try work function parameter for values 0 to 31
-        for (int workFunction = 0; workFunction < 32; workFunction++) {
-            sha512.setWorkFunction(workFunction);
-            System.out.println("Work function: " + sha512.getWorkFunction());
+        // Try work factor parameter for values 0 to 31
+        for (int workfactor = 0; workfactor < 32; workfactor++) {
+            sha512.setWorkFactor(workfactor);
+            System.out.println("Work factor: " + sha512.getWorkFactor());
 
             startTime = System.currentTimeMillis();
             hashedPassword = sha512.hashPassword();
@@ -68,7 +68,7 @@ public class ResultGenerator {
             duration = endTime - startTime;
 
             String[] resultData = {
-                    String.valueOf(workFunction),       // WORK_FUNCTION
+                    String.valueOf(workfactor),         // WORK_FACTOR
                     convertBytesToHex(hashedPassword),  // HASH
                     String.valueOf(duration)            // TIME
             };
@@ -88,16 +88,16 @@ public class ResultGenerator {
      * @throws IOException
      */
     public void generateBCryptResults() throws IOException {
-        String[] headers = {"WORK_FUNCTION", "SALT", "HASH", "TIME"};   // Csv file headers
+        String[] headers = {"WORK_FACTOR", "SALT", "HASH", "TIME"};   // Csv file headers
         dataLines.add(headers);
 
         BcryptAlgo bcrypt = new BcryptAlgo();
         bcrypt.setPlaintextPassword(plaintext);
         System.out.println("Plaintext: " + bcrypt.getPlaintextPassword());
-        // Try work function parameter for values 4 to 31 - BouncyCastle specification limits for BCrypt algorithm
-        for (int workFunction = 4; workFunction < 32; workFunction++) {
-            bcrypt.setWorkFunction(workFunction);
-            System.out.println("Work function: " + bcrypt.getWorkFunction());
+        // Try work factor parameter for values 4 to 31 - BouncyCastle specification limits for BCrypt algorithm
+        for (int workfactor = 4; workfactor < 32; workfactor++) {
+            bcrypt.setWorkfactor(workfactor);
+            System.out.println("Work factor: " + bcrypt.getWorkfactor());
 
             startTime = System.currentTimeMillis();
             hashedPassword = bcrypt.hashPassword();
@@ -105,7 +105,7 @@ public class ResultGenerator {
             duration = endTime - startTime;
 
             String[] resultData = {
-                    String.valueOf(workFunction),       // WORK_FUNCTION
+                    String.valueOf(workfactor),         // WORK_FACTOR
                     bcrypt.getSaltAsHex(),              // SALT
                     convertBytesToHex(hashedPassword),  // HASH
                     String.valueOf(duration)            // TIME
@@ -123,8 +123,8 @@ public class ResultGenerator {
 
     /**
      * Generate cost data for Argon2id algorithm. Uses default parameters below for all tests:
-     * - Hash Length: 32 Bytes
-     * - Number of Threads (Parallelism): 1
+     *      Hash Length: 32 Bytes,
+     *      Number of Threads: 1
      * @throws IOException
      */
     public void generateArgon2idResults() throws IOException {
