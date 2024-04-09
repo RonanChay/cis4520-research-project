@@ -70,6 +70,7 @@ public class Argon2idAlgo implements Algorithm {
         Argon2BytesGenerator argon2id = new Argon2BytesGenerator();
         argon2id.init(argon2Params.build());
         byte[] hashedPassword = new byte[hashLength];
+        // plaintext as bytes[], byte[] to store output hash, output offset of 0, hash length of 32B
         argon2id.generateBytes(plaintextPassword.getBytes(StandardCharsets.UTF_8), hashedPassword, 0, hashedPassword.length);
 
         return hashedPassword;

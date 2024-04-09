@@ -28,7 +28,7 @@ public class ResearchProject {
             choice = scanner.nextInt();
         } catch (Exception ex) {
             System.out.println("Error occurred when entering choice. Ensure that a valid number was input");
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
             return;
         }
 
@@ -48,8 +48,7 @@ public class ResearchProject {
                         break;
                 }
             } catch (IOException ex) {
-                System.out.println("Error occurred when writing to csv file");
-                ex.printStackTrace();
+                System.out.println("Error occurred when writing to csv file: " + ex.getMessage());
             }
         } else if (choice == 4) {
             // Manual one-time algorithm tests

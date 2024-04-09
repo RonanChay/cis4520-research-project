@@ -30,7 +30,5 @@ replay_pid*
 gradlew
 gradlew.bat
 weakpass_3.7z
-*.csv
 results/
-graphs/data
 *.png

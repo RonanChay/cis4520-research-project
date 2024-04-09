@@ -1,5 +1,5 @@
 '''
-python3.9 process-data.py data/sha512-results.csv sha512
+python3.9 process-data.py pc sha512
 '''
 
 import sys
@@ -11,6 +11,7 @@ PROCESSED_FILENAME_SUFFIX = "-results-processed"
 SEARCH_PATH = "data/"
 FILE_TYPE = ".csv"
 ALGORITHMS = ["sha512", "bcrypt", "argon2id"]
+HARDWARE = ["pc", "android"]
 CSV_HEADERS = {
     "sha512": "Work Factor,Time",
     "bcrypt": "Work Factor,Time",
@@ -49,7 +50,7 @@ def processCostData(hardware, algorithm):
     # Calculating time averages
     file_number = 0
     work_factors = []
-    times = []
+    sum_times = []
     num_iterations = []
     mem_limit = []
     for fileReader in source_fileReaders:
@@ -63,30 +64,29 @@ def processCostData(hardware, algorithm):
             if algorithm == "sha512":
                 if file_number == 1:
                     work_factors.append(int(cost_row_data[0]))
-                    times.append(int(cost_row_data[2]))
+                    sum_times.append(int(cost_row_data[2]))
                 else:
-                    times[count] += int(cost_row_data[2])
+                    sum_times[count] += int(cost_row_data[2])
             elif algorithm == "bcrypt":
                 if file_number == 1:
                     work_factors.append(int(cost_row_data[0]))
-                    times.append(int(cost_row_data[3]))
+                    sum_times.append(int(cost_row_data[3]))
                 else:
-                    times[count] += int(cost_row_data[3])
+                    sum_times[count] += int(cost_row_data[3])
             elif algorithm == "argon2id":
                 if file_number == 1:
                     num_iterations.append(int(cost_row_data[0]))
                     mem_limit.append(int(cost_row_data[1]))
-                    times.append(int(cost_row_data[6]))
+                    sum_times.append(int(cost_row_data[6]))
                 else:
-                    times[count] += int(cost_row_data[6])
+                    sum_times[count] += int(cost_row_data[6])
             count += 1
-        # print(work_factors, times, num_iterations, mem_limit)
     
-    for i in range(len(times)):
+    for i in range(len(sum_times)):
         if algorithm == "sha512" or algorithm == "bcrypt":
-            print("{},{}".format(work_factors[i], times[i]/file_number), file = processed_fileWriter)
+            print("{},{}".format(work_factors[i], sum_times[i]/file_number), file = processed_fileWriter)
         elif algorithm == "argon2id":
-            print("{},{}KiB,{}".format(num_iterations[i], mem_limit[i], times[i]/file_number), file = processed_fileWriter)
+            print("{},{}KiB,{}".format(num_iterations[i], mem_limit[i], sum_times[i]/file_number), file = processed_fileWriter)
         
 
     processed_fileWriter.close()
@@ -99,6 +99,8 @@ def main():
         sys.exit(-1)
     hardware = sys.argv[1].lower()
     algorithm = sys.argv[2].lower()
+    if hardware not in HARDWARE:
+        print("Invalid hardware input: must be either \"pc\" or \"android\"")
     if algorithm not in ALGORITHMS:
         print("Invalid algorithm input: must be either \"sha512\", \"bcrypt\", or \"argon2id\"")
     processCostData(hardware, algorithm)
