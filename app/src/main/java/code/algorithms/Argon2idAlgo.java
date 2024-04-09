@@ -12,8 +12,8 @@ import static code.Utils.generateSalt16Bytes;
 public class Argon2idAlgo implements Algorithm {
     private String plaintextPassword = "";
     int numIterations = 1;
-    int memLimit = 1024;
-    int hashLength = 32;
+    int memLimit = 10240;   // in KiB
+    int hashLength = 32;    // in Bytes
     int numThreads = 1;
     byte[] salt;
     @Override
@@ -60,7 +60,7 @@ public class Argon2idAlgo implements Algorithm {
     public byte[] hashPassword() {
         salt = generateSalt16Bytes();
 
-        Argon2Parameters.Builder argon2Builder = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id)
+        Argon2Parameters.Builder argon2Params = new Argon2Parameters.Builder(Argon2Parameters.ARGON2_id)
                 .withVersion(Argon2Parameters.ARGON2_VERSION_10)
                 .withIterations(numIterations)
                 .withMemoryAsKB(memLimit)
@@ -68,7 +68,7 @@ public class Argon2idAlgo implements Algorithm {
                 .withSalt(salt);
 
         Argon2BytesGenerator argon2id = new Argon2BytesGenerator();
-        argon2id.init(argon2Builder.build());
+        argon2id.init(argon2Params.build());
         byte[] hashedPassword = new byte[hashLength];
         argon2id.generateBytes(plaintextPassword.getBytes(StandardCharsets.UTF_8), hashedPassword, 0, hashedPassword.length);
 

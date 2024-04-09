@@ -12,8 +12,8 @@ SEARCH_PATH = "data/"
 FILE_TYPE = ".csv"
 ALGORITHMS = ["sha512", "bcrypt", "argon2id"]
 CSV_HEADERS = {
-    "sha512": "Work Function,Time",
-    "bcrypt": "Work Function,Time",
+    "sha512": "Work Factor,Time",
+    "bcrypt": "Work Factor,Time",
     "argon2id": "Number of Iterations,Memory Limit,Time"
 }
 

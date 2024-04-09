@@ -46,7 +46,7 @@ public class SHA512Algo implements Algorithm {
     public byte[] hashPassword() {
         byte[] finalHash = generateHash(plaintextPassword.getBytes(StandardCharsets.UTF_8));
         // total num iterations = 2^(workFactor)
-        for (int i = 0; i < 1L << workFactor - 1; i++) {
+        for (int i = 0; i < 1L << workFactor; i++) {
             finalHash = generateHash(finalHash);
         }
         return finalHash;
@@ -63,8 +63,7 @@ public class SHA512Algo implements Algorithm {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             generatedPasswordHash = md.digest(passwordToHash);
         } catch (NoSuchAlgorithmException e) {
-            // TODO: Better error handling
-            e.printStackTrace();
+            System.out.println("Error occurred when generating hash: " + e.getMessage());
         }
         return generatedPasswordHash;
     }

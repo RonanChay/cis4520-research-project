@@ -13,8 +13,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
-
     // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.77'
 }
@@ -31,7 +29,3 @@ run {
  * gradle clean build
  * gradle --console plain run
  */
-
-//tasks.named('test') {
-//    useJUnitPlatform()
-//}
