@@ -16,7 +16,7 @@ import static code.Utils.convertBytesToHex;
 public class ResultGenerator {
     private final String plaintext = "password123";
     long startTime, endTime, duration;      // Cost (time) calculation
-    final int MAX_DURATION = 200;        // Max duration to stop trying larger parameter values
+    final int MAX_DURATION = 180000;        // Max duration to stop trying larger parameter values
     byte[] hashedPassword;
     List<String[]> dataLines = new ArrayList<>();   // Data for each algorithm test
     final String SHA512_CSV_FILE_NAME = "sha512-results.csv";

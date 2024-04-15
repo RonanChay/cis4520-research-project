@@ -26,6 +26,7 @@ run {
 }
 
 /**
- * gradle clean build
- * gradle --console plain run
+ * COMMANDS TO RUN THE PROGRAM:
+ * gradle clean build           Installs any dependencies needed and builds the project
+ * gradle --console plain run   Runs the project
  */
