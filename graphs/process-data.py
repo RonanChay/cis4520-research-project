@@ -1,5 +1,5 @@
 '''
-Run command: python3 process-data.py <device> <algorithm>
+Run command: python3 process-data.py <hardware> <algorithm>
 '''
 
 import sys
@@ -118,8 +118,10 @@ def main():
     algorithm = sys.argv[2].lower()
     if hardware not in HARDWARE:
         print("Invalid hardware input: must be either \"pc\" or \"android\"")
+        sys.exit(-2)
     if algorithm not in ALGORITHMS:
-        print("Invalid algorithm input: must be either \"sha512\", \"bcrypt\", or \"argon2id\"")
+        print("Invalid algorithm input: must be \"sha512\", \"bcrypt\", or \"argon2id\"")
+        sys.exit(-3)
         
     processCostData(hardware, algorithm)
 

@@ -114,13 +114,14 @@ constants/flags in the scripts.
 ### Running the scripts
 
 `/!\ `  Ensure that all the directories are structured correctly and the relevant data
-files are in the correct locations.
+files are in the correct locations. Also ensure your terminal is in the `graphs` directory
+before running the scripts
 
 To run the `process-data.py` script to process the raw data, run the following command:
 ```
-python3 process-data.py <device> <algorithm>
+python3 process-data.py <hardware> <algorithm>
 ```
-`<device>` is the hardware device to process and can either be `pc` or `android`.
+`<hardware>` is the hardware device to process and can either be `pc` or `android`.
 
 `<algorithm>` is the algorithm to process and can be `sha512`, `bcrypt`, or `argon2id`.
 

@@ -40,8 +40,14 @@ def createComparisonGraphs(csv_filepath, graph_filename, algo, graph_title):
 
     plt.title(graph_title)
     fig.savefig(graph_filename, bbox_inches="tight")
+    
+    print("Successfully created graph called \"" + graph_filename + "\"")
 
 def main():
+    if len(sys.argv) != 5:
+        print("Invalid command-line arguments: Ensure follows format <datafile path> <algorithm> <graph title> <output filename>", file=sys.stderr)
+        sys.exit(-1)
+        
     filepath = sys.argv[1]
     algorithm = sys.argv[2].lower()
     title = sys.argv[3]
@@ -49,6 +55,7 @@ def main():
     
     if algorithm not in ALGORITHMS:
         print("Invalid algorithm input: must be either \"sha512\", \"bcrypt\", or \"argon2id\"")
+        sys.exit(-3)
         
     createComparisonGraphs(filepath, output_filename, algorithm, title)
     
