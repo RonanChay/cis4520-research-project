@@ -144,5 +144,5 @@ python3 plot-graph.py <datafile path> <algorithm> <graph title> <output filename
 if there are spaces in the title. (For eg: `"SHA-512 Parameter-Cost Comparison"`)
 
 `<output filename>` is the name of the output file for the graph. Specify the file type in the
-filename as well (For eg: `testgrapgh.png` will make the graph into a png file called 
+filename as well (For eg: `testgraph.png` will make the graph into a png file called 
 `testgraph.png`)
