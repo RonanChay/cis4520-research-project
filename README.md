@@ -2,6 +2,7 @@
 
 TBA: Will explain code structure, how to run, and how graph python scripts works
 
+```
 app/
 ├─ src/main/java/code/
 │  ├─ algorithms/
@@ -13,3 +14,4 @@ app/
 │  ├─ ResultGenerator.java
 │  ├─ Utils.java
 ├─ build.gradle
+```
