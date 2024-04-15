@@ -14,16 +14,7 @@ public class SHA512Algo implements Algorithm {
     private String plaintextPassword = "";  // Plain text password input
     private int workFactor = 0;   // Work factor parameter input
 
-    // Prompts user for plain text password and work factor parameter
-    @Override
-    public void getInputParams() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter password to hash: ");
-        plaintextPassword = scanner.nextLine().strip();
-        System.out.println("Enter work factor: ");
-        workFactor = scanner.nextInt();
-    }
-
+    // Getters + Setters
     public String getPlaintextPassword() {
         return plaintextPassword;
     }
@@ -37,25 +28,35 @@ public class SHA512Algo implements Algorithm {
         this.workFactor = workFactor;
     }
 
+    // Prompts user for plain text password and work factor parameter
+    @Override
+    public void getInputParams() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter password to hash: ");
+        plaintextPassword = scanner.nextLine().strip();
+        System.out.println("Enter work factor: ");
+        workFactor = scanner.nextInt();
+    }
+
     /**
      * Hashes the password based on the work factor parameter
      * Number of iterations = 2^(work factor)
-     * @return String final output password hash
+     * @return byte[] of final output password hash
      */
     @Override
     public byte[] hashPassword() {
         byte[] finalHash = generateHash(plaintextPassword.getBytes(StandardCharsets.UTF_8));
         // total num iterations = 2^(workFactor)
-        for (int i = 0; i < 1L << workFactor; i++) {
+        for (int i = 0; i < 1L << workFactor - 1; i++) {
             finalHash = generateHash(finalHash);
         }
         return finalHash;
     }
 
     /**
-     * Performs one SHA-512 hashing operation on the password given
+     * Performs one SHA-512 hashing operation on the plaintext password
      * @param passwordToHash Password to be hashed
-     * @return String hash of password
+     * @return byte[] of hash of password
      */
     private byte[] generateHash(byte[] passwordToHash) {
         byte[] generatedPasswordHash = new byte[0];

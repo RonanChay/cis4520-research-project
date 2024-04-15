@@ -27,8 +27,7 @@ public class ResearchProject {
         try {
             choice = scanner.nextInt();
         } catch (Exception ex) {
-            System.out.println("Error occurred when entering choice. Ensure that a valid number was input");
-            System.out.println(ex.getMessage());
+            System.out.println("Error occurred when entering choice. Ensure that a valid integer was input");
             return;
         }
 
@@ -87,9 +86,15 @@ public class ResearchProject {
             System.out.println("Hashed Password: " + convertBytesToHex(hashedPassword));
             System.out.println("Time Taken: " + duration + "ms");
 
-            // Argon2id Analysis
+            // Argon2id Analysis - uses default parameters for memory limit, hash length, and number of threads
             Argon2idAlgo argon2id = new Argon2idAlgo();
             System.out.println("\n======== Analyzing Argon2id Algorithm ========");
+            System.out.println("Default parameter values:");
+            System.out.printf("Memory limit = %d    Hash length = %d    Number of threads = %d%n",
+                    argon2id.getMemLimit(),
+                    argon2id.getHashLength(),
+                    argon2id.getNumThreads()
+            );
             argon2id.getInputParams();
             System.out.println("\nHashing now...");
 
@@ -104,7 +109,7 @@ public class ResearchProject {
             System.out.println("Time Taken: " + duration + "ms");
         } else {
             // Invalid option number input
-            System.out.println("Invalid option.");
+            System.out.println("Invalid option. Ensure a number (1-4) corresponding to the desired option is input");
         }
 
         System.out.println("\n\nExiting program...\n");
