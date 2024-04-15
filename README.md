@@ -63,9 +63,9 @@ gradle --console plain clean build run
 A terminal-based menu will be displayed once the program runs. The user can then
 follow the prompts shown to select their desired choice.
 
-Note that only one option can be selected at a time and the program will exit 
-once that option is complete. Simply re-run the application again if you wish
-to choose a different option or if something goes wrong.
+> Note that only one option can be selected at a time and the program will exit 
+> once that option is complete. Simply re-run the application again if you wish
+> to choose a different option or if something goes wrong.
 
 ## Graphing with Python
 
@@ -115,9 +115,9 @@ constants/flags in the scripts:
 
 ### Running the scripts
 
-`/!\ `  Ensure that all the directories are structured correctly and the relevant data
-files are in the correct locations. Also ensure your terminal is in the `graphs` directory
-before running the scripts
+> Ensure that all the directories are structured correctly and the relevant data
+> files are in the correct locations. Also ensure your terminal is in the `graphs` directory
+> before running the scripts
 
 To run the `process-data.py` script to process the raw data, run the following command:
 ```
@@ -126,6 +126,8 @@ python3 process-data.py <hardware> <algorithm>
 `<hardware>` is the hardware device to process and can either be `pc` or `android`.
 
 `<algorithm>` is the algorithm to process and can be `sha512`, `bcrypt`, or `argon2id`.
+
+---
 
 To run the `plot-graph.py` script to generate the graphs, run the following command:
 ```
