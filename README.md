@@ -1,4 +1,4 @@
-# CIS 4520 Research Project - PHAs
+# CIS 4520 Research Project - PHAs on PC
 
 This project is the code implementation for my CIS*4520 research project for
 Winter 2024. I implement the SHA-512, BCrypt, and Argon2id algorithms using
