@@ -1,6 +1,6 @@
 # CIS 4520 Research Project - PHAs on PC
 
-> Refer to [this repository](https://github.com/RonanChay/cis4520-research-project-android.git) for the Android implementation
+> Refer to [this repository](https://github.com/RonanChay/cis4520-research-project-android) for the Android implementation
 
 This project is the code implementation for my CIS*4520 research project for
 Winter 2024. I implement the SHA-512, BCrypt, and Argon2id algorithms using
