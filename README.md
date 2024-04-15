@@ -109,7 +109,9 @@ the `data` directory and are called `<algorithm>-results-processed-both.csv`
 `plot-graph.py` is another python script that uses Seaborn, Matplotlib and Pandas to read
 the processed csv data for both devices for each algorithm and plots the relevant graphs. These
 graphs are output in the `data` directory as well. Some flags can be tweaked by changing the
-constants/flags in the scripts.
+constants/flags in the scripts:
+1. `Y_LIMIT`: the maximum y-value to set the scale of the y-axis (set to 0 for automatic limit)
+2. `ADD_THRESHOLDS`: boolean flag to add red thresholds to the graph (True) or not (False)
 
 ### Running the scripts
 
